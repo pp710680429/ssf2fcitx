@@ -31,8 +31,6 @@ private:
     QProcess * process;
     QStringList ssf文件;
     QString 安装存放目录_字符串; //$HOME/.config/fcitx/skin
-
-    bool copyFileToPath(QString sourceDir ,QString toDir, bool coverFileIfExist);
 };
 
 #endif // WIDGET_H
