@@ -14,3 +14,6 @@ ssf2skin:https://github.com/VOID001/ssf2fcitx
 ---
 
 ### MIT 协议
+
+---
+Qt 5.7.1
