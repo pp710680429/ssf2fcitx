@@ -46,7 +46,14 @@
      <item>
       <widget class="QPushButton" name="pushButtonImport">
        <property name="text">
-        <string>导入ssf</string>
+        <string>导入ssf皮肤</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButtonTransformation">
+       <property name="text">
+        <string>转换且安装</string>
        </property>
       </widget>
      </item>
@@ -64,9 +71,16 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButtonTransformation">
+      <widget class="QPushButton" name="pushButtonViewLocationSkin">
        <property name="text">
-        <string>转换且安装</string>
+        <string>查看本地皮肤</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButtonDeleteLocationSkin">
+       <property name="text">
+        <string>删除本地皮肤</string>
        </property>
       </widget>
      </item>

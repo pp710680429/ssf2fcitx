@@ -24,6 +24,10 @@ private slots:
 
     void on_pushButtonTransformation_clicked();
 
+    void on_pushButtonViewLocationSkin_clicked();
+
+    void on_pushButtonDeleteLocationSkin_clicked();
+
 private:
     Ui::Widget *ui;
 
@@ -31,6 +35,8 @@ private:
     QProcess * process;
     QStringList ssf文件;
     QString 安装存放目录_字符串; //$HOME/.config/fcitx/skin
+
+    bool DeleteDirectory(const QString &path);
 };
 
 #endif // WIDGET_H

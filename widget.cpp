@@ -5,6 +5,7 @@
 #include <QMessageBox>
 #include <QFile>
 #include <QDesktopWidget>
+#include <QFileInfoList>
 
 Widget::Widget(QWidget *parent) :
     QWidget(parent),
@@ -36,6 +37,10 @@ Widget::Widget(QWidget *parent) :
     QPalette palette = this->palette();
     palette.setBrush(QPalette::Window,QBrush(QPixmap(":/icon/background").scaled(this->size(),Qt::IgnoreAspectRatio,Qt::SmoothTransformation)));// 使用平滑的缩放方式
     this->setPalette(palette);// 给widget加上背景图
+
+
+    //QListWidget设置多选
+    ui->listWidget->setSelectionMode(QAbstractItemView::ExtendedSelection);
 }
 
 Widget::~Widget()
@@ -53,6 +58,9 @@ void Widget::on_pushButtonImport_clicked()
 
     //如果没有选择，就直接返回
     if(ssf文件.isEmpty()) return;
+
+    //清空旧的列表项
+    ui->listWidget->clear();
 
     //如果选择了文件，则把文件显示在列表中
     for(QString 单个文件 : ssf文件){
@@ -80,3 +88,84 @@ void Widget::on_pushButtonTransformation_clicked()
     QMessageBox::information(0,tr("提示"),QString("转换完毕！请检查！"),QMessageBox::Ok);
 }
 
+
+void Widget::on_pushButtonViewLocationSkin_clicked()
+{
+    ui->listWidget->clear();
+    int fileCount = 0;
+    QDir 本地皮肤存放目录(安装存放目录_字符串);
+    QFileInfoList fileInfoList = 本地皮肤存放目录.entryInfoList();
+    foreach ( QFileInfo fileInfo, fileInfoList )
+    {
+        if ( fileInfo.fileName() == "." || fileInfo.fileName() == ".." )
+            continue;
+        fileCount++;
+
+        if ( fileInfo.isDir() )
+        {
+            //qDebug() << fileInfo.fileName();
+
+            //如果是目录就加入到列表中显示
+            ui->listWidget->addItem(fileInfo.fileName());
+        }
+    }
+}
+
+void Widget::on_pushButtonDeleteLocationSkin_clicked()
+{
+    //如果没有选中，就直接返回
+    if(ui->listWidget->selectedItems().count() == 0){
+        return;
+    }
+
+    //弹出提示框，再次确认后才删除
+    int 选中状态 = QMessageBox::warning(this,tr("提示"),tr("在你删除前，你一定要再次确认选中的是你要删除的！"),QMessageBox::Ok,QMessageBox::Cancel);
+    if(选中状态 == QMessageBox::Cancel){
+        return;
+    }
+
+    //删除
+    QDir tmpDir(安装存放目录_字符串);
+    for(int i = 0;i < ui->listWidget->selectedItems().count() ;i++){
+        QString 要删除的目录 = 安装存放目录_字符串 + QString(ui->listWidget->selectedItems()[i]->text());
+        if(!DeleteDirectory(要删除的目录)){
+          选中状态 = QMessageBox::warning(this,tr("提示"),QString("删除“%1”失败！点击OK继续，否则将停止删除！").arg(要删除的目录),QMessageBox::Ok,QMessageBox::Cancel);
+          if(选中状态 == QMessageBox::Cancel){
+              break;
+          }
+        }
+    }
+
+    //删除完刷新显示列表
+    on_pushButtonViewLocationSkin_clicked();
+}
+
+//这个函数来自--->https://www.jianshu.com/p/7a65d539cfef<---的代码
+bool Widget::DeleteDirectory(const QString &path)
+{
+    if (path.isEmpty())
+    {
+        return false;
+    }
+
+    QDir dir(path);
+    if(!dir.exists())
+    {
+        return true;
+    }
+
+    dir.setFilter(QDir::AllEntries | QDir::NoDotAndDotDot);
+    QFileInfoList fileList = dir.entryInfoList();
+    foreach (QFileInfo fi, fileList)
+    {
+        if (fi.isFile())
+        {
+            fi.dir().remove(fi.fileName());
+        }
+        else
+        {
+            DeleteDirectory(fi.absoluteFilePath());
+        }
+    }
+    return dir.rmpath(dir.absolutePath());
+}
