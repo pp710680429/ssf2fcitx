@@ -35,3 +35,7 @@ FORMS    += widget.ui
 
 RESOURCES += \
     res.qrc
+
+CONFIG += link_pkgconfig
+PKGCONFIG += dtkwidget
+

@@ -24,7 +24,8 @@
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">background:rgb(0,0,0,0.9);</string>
+      <string notr="true">background-image: url(:/icon/background);
+color: rgb(25, 186, 255);</string>
      </property>
     </widget>
    </item>
