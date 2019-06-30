@@ -20,6 +20,13 @@ ssf2skin:https://github.com/VOID001/ssf2fcitx
     2、修复安装后的皮肤名字带“.ssf”问题
     3、其它bug修复
     
+---
+效果图
+![ZlXhef.png](https://s2.ax1x.com/2019/06/30/ZlXhef.png)
+
+
+说明和下载地址
+https://bbs.deepin.org/forum.php?mod=viewthread&tid=179916&extra=
 
 ---
 
