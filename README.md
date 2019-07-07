@@ -30,7 +30,7 @@ https://bbs.deepin.org/forum.php?mod=viewthread&tid=179916&extra=
 
 ---
 
-### MIT 协议
+### GPL3 协议
 
 ---
 Qt 5.7.1
